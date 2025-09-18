@@ -1,0 +1,89 @@
+
+###All entity
+http://localhost:4004/odata/v4/CatalogService
+
+###Metadata
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+###Employee Details
+http://localhost:4004/odata/v4/CatalogService/EmployeeDetails
+
+### Create new employee
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeDetails
+Content-Type: application/json
+
+{
+    "Currency_code": "USD",
+      "ID": "02BD2137-0890-1EEA-A6C2-BB55C19787FC",
+      "accountNumber": "111222657",
+      "bankId": "510000612",
+      "bankName": "My Bank of HDFC",
+      "email": "sally.spring@itelo.info",
+      "gender": "M",
+      "language": "E",
+      "loginName": "NIKHIL",
+      "nameFirst": "Sally",
+      "nameInitials": null,
+      "nameLast": "Spring",
+      "nameMiddle": null,
+      "phone": "+1 224 374 524",
+      "salaryAmount": "55549.00"
+}
+
+### Update
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeDetails/02BD2137-0890-1EEA-A6C2-BB55C19787FC
+Content-Type: application/json
+
+{
+    "Currency_code": "EUR",
+    "salaryAmount": "55555.00"
+}
+
+### Delete
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeDetails/02BD2137-0890-1EEA-A6C2-BB55C19787FC
+
+### PO Details
+Get http://localhost:4004/odata/v4/CatalogService/PODetails/74867AD200E41EDBA5D8B0C98DC28052?$expand=Items&$format=json
+
+### service metadata
+Get http://localhost:4004/odata/v4/CatalogService/EmployeeDetails?$top=5&$skip=5
+
+### Get PO Details
+Get http://localhost:4004/odata/v4/CatalogService/PODetails/74867AD200E41EDBA5D8B0C98DC28052
+
+### Update PO Details using Instance bounded Action
+POST http://localhost:4004/odata/v4/CatalogService/PODetails('74867AD200E41EDBA5D8B0C98DC28052')/CatalogService.increasedPrice
+Content-Type: application/json
+
+{}
+
+### Get PO Details using Instance bounded Function
+GET http://localhost:4004/odata/v4/CatalogService/PODetails('')/CatalogService.largestOrder()
+
+### Create new employee using custom function
+POST http://localhost:4004/odata/v4/CatalogService/createEmployee
+Content-Type: application/json
+
+{
+    //"Currency_code": "USD",
+      //"ID": "02BD2137-0890-1EEA-A6C2-BB55C1974568",
+      "accountNumber": "111222664",
+      "bankId": "510000612",
+      "bankName": "My Bank of HDFC",
+      "email": "sally.spring@itelo.info",
+      "gender": "M",
+      "language": "E",
+      "loginName": "MouNik",
+      "nameFirst": "Mousumi",
+      "nameInitials": null,
+      "nameLast": "Spring",
+      "nameMiddle": null,
+      "phone": "+1 224 374 524",
+      "salaryAmount": "55209.00"
+}
+
+### Get Product details using custom function
+GET http://localhost:4004/odata/v4/CatalogService/getProducts('EUR')
+
+### Delete
+DELETE http://localhost:4004/odata/v4/CatalogService/BusinessPartnerService
