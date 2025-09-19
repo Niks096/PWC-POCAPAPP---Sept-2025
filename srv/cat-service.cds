@@ -5,7 +5,7 @@ using {
 using { pocap.common as c } from '../db/common';
 
 
-service CatalogService @(path: 'CatalogService') {
+service CatalogService @(path: 'CatalogService', requires: 'authenticated-user') {
     
     @Capabilities : { 
         InsertRestrictions : {
@@ -27,9 +27,24 @@ service CatalogService @(path: 'CatalogService') {
     @readonly
     entity ProductInformation as projection on master.product;
 
-    entity EmployeeDetails as projection on master.employees;
+    entity EmployeeDetails @(restrict : [
+        {
+            grant : ['Read'], to: 'Viewer', where: 'bankName = $user.bankName'
+        },
+        {
+            grant : ['Write'], to: 'Admin'
+        }
+    ])
+     as projection on master.employees;
 
-    entity AddressInfo as projection on master.address;
+    entity AddressInfo @(restrict : [
+        {
+            grant : ['Read'], to: 'Viewer', where: 'COUNTRY = $user.myCountry'
+        },
+        {
+            grant : ['Write'], to: 'Admin'
+        }
+    ])as projection on master.address;
 
     entity PODetails @(
         odata.draft.enabled : true
