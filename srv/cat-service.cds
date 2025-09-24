@@ -23,7 +23,7 @@ service CatalogService @(path: 'CatalogService', requires: 'authenticated-user')
      }
     entity BusinessPartnerService as projection on master.businesspartner;
 
-    // Apply restrictions
+    // Apply restrictions 
     @readonly
     entity ProductInformation as projection on master.product;
 
